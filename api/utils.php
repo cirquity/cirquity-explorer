@@ -9,7 +9,7 @@ function build_post_context($postData) {
                 )
         )
     );
-};
+}
 
 function build_rpc_body($method, $params) {
     return '{"jsonrpc":"2.0","id":"blockexplorer","method":"' . $method . '","params":' . $params . '}';
@@ -31,5 +31,12 @@ function fetch_data($api, $endPoint = 'info') {
 
 function return_json($content) {
     header('Content-Type: application/json; charset=utf-8');
+    if (
+        !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+        strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'
+    ) {
+        $content = json_encode($content);
+    }
+
     echo $content;
 }
