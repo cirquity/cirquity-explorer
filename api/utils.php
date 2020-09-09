@@ -29,13 +29,21 @@ function fetch_data($api, $endPoint = 'info') {
     return json_decode($response, true);
 }
 
-function return_json($content) {
+function return_json($content, $name) {
     header('Content-Type: application/json; charset=utf-8');
+    $arr = [];
+
     if (
         !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
         strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'
     ) {
-        $content = json_encode($content);
+        if ($name) {
+            $arr[$name] = $content;
+            $content = json_encode($arr);
+        }
+        else {
+            $content = json_encode($content);
+        }
     }
 
     echo $content;

@@ -47,7 +47,7 @@ function getNodeInfo($url) {
     $result = curl_exec($ch);
     curl_close($ch);
 
-    return_json($result);
+    return_json($result, null);
 }
 
 function getFee() {
@@ -56,7 +56,7 @@ function getFee() {
     $info = fetch_data($config['api'], 'fee');
     $feeRaw = $info['amount'];
 
-    return_json(number_format($feeRaw / $config['coinUnits'], $config['coinDecimals'], '.', ','));
+    return_json(number_format($feeRaw / $config['coinUnits'], $config['coinDecimals'], '.', ','), 'fee');
 }
 
 function getHashrate() {
@@ -65,7 +65,7 @@ function getHashrate() {
     $info = fetch_data($config['api']);
     $difficulty = $info['difficulty'];
 
-    return_json(number_format($difficulty / $config['blockTargetInterval'], $config['coinDecimals'], '.', ','));
+    return_json(number_format($difficulty / $config['blockTargetInterval'], $config['coinDecimals'], '.', ','), 'hashrate');
 }
 
 function getDifficulty() {
@@ -73,7 +73,7 @@ function getDifficulty() {
 
     $info = fetch_data($config['api']);
 
-    return_json($info['difficulty']);
+    return_json($info['difficulty'], 'difficulty');
 }
 
 function getHeight() {
@@ -81,7 +81,7 @@ function getHeight() {
 
     $info = fetch_data($config['api'], 'height');
 
-    return_json($info['network_height']);
+    return_json($info['network_height'], 'network_height');
 }
 
 function getReward() {
@@ -89,7 +89,7 @@ function getReward() {
 
     $lastBlock = fetch_rpc($config['api'], 'getlastblockheader', '{}');
 
-    return_json($lastBlock['result']['block_header']['reward']);
+    return_json($lastBlock['result']['block_header']['reward'], 'reward');
 }
 
 function getSupply() {
@@ -97,7 +97,7 @@ function getSupply() {
 
     $supplyRaw = getSupplyAtomic(true);
 
-    return_json(number_format($supplyRaw / 100, $config['coinDecimals'], '.', ','));
+    return_json(number_format($supplyRaw / 100, $config['coinDecimals'], '.', ','), 'supply');
 }
 
 function getSupplyAtomic($called = false) {
@@ -111,7 +111,7 @@ function getSupplyAtomic($called = false) {
         $supplyRaw = $blockData['result']['block']['alreadyGeneratedCoins'];
 
         if (!$called) {
-            return_json($supplyRaw);
+            return_json($supplyRaw, 'supply_atomic');
         }
 
         return $supplyRaw;
