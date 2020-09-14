@@ -41,9 +41,6 @@ function return_json($content, $name) {
             $arr[$name] = $content;
             $content = json_encode($arr);
         }
-        else {
-            $content = json_encode($content);
-        }
     }
 
     echo $content;
