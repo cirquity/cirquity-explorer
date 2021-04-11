@@ -205,26 +205,40 @@ let numberFormatter = new Intl.NumberFormat('en-US');
 
 
     $.getReadableCoins = function(coins, digits, withoutSymbol) {
-        //below "rounds".... we want to display the floor units to 2 decimals places. eg: 0.096 should be displayed as 0.09, not 0.1
+        //below "rounds".... we want to display the floor units to "coinDisplayDecimals decimals places. eg: 0.096 should be displayed as 0.09, not 0.1
         //var amount = (parseInt(coins || 0) / coinUnits).toFixed(digits || coinUnits.toString().length - 1);
-        const fullAmount = parseInt(coins || 0) / coinUnits;
+        const decimals = (digits || coinDisplayDecimals);
+        const fullAmount = (parseInt(coins || 0) / coinUnits);
         const amountDollars = Math.floor(fullAmount);
         const fullAmountStr = "" + fullAmount;
         let amountCents = ""; //.substr(0, (digits || coinDisplayDecimals));
         if (fullAmountStr.indexOf(".") > -1) {
             //coin has decimals
             amountCents = fullAmountStr.substr(fullAmountStr.indexOf(".") + 1, fullAmountStr.length - fullAmountStr.indexOf(".") + 1);
-            amountCents = amountCents.substr(0, (digits || coinDisplayDecimals));
-            if (amountCents.length === 1) {
-                amountCents = amountCents + "0";
+            amountCents = amountCents.substr(0, decimals);
+            if (amountCents.length < decimals) {
+                amountCents = $.paddedNumber(coinDefaultDecimals, amountCents);
             }
         } else {
             //no decimals
-            amountCents = "00";
+            amountCents = coinDefaultDecimals;
         }
 
         return $.localizeNumber(amountDollars) + "." + amountCents + (withoutSymbol ? '' : (' ' + symbol));
     };
+
+
+    $.paddedNumber = function(pad, user_str, pad_pos) {
+        if (typeof user_str === 'undefined')
+            return pad;
+
+        if (pad_pos === 'l') {
+            return (pad + user_str).slice(-pad.length);
+        }
+        else {
+            return (user_str + pad).substring(0, pad.length);
+        }
+    }
 
 
     $.hex2a = function (hexx) {

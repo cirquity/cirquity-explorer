@@ -1,6 +1,6 @@
 /*!
  * Cirquity - Cirquity v1.2.0 (https://cirquity.com)
- * Copyright 2020-2020 The Cirquity Developers
+ * Copyright 2020-2021 The Cirquity Developers
  * Licensed under MIT (https://github.com/cirquity/cirquity-explorer/blob/master/LICENSE)
  */
 

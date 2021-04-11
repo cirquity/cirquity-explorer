@@ -125,8 +125,8 @@
 
     $.getTransactionCells = function(transaction){
         return '<th scope="row" class="hash-code">' + $.formatPaymentLink(transaction.hash) + '</th>' +
-            '<td>' + $.getReadableCoins(transaction.fee, 4, true) + '</td>' +
-            '<td>' + $.getReadableCoins(transaction.amount_out, 4, true) + '</td>' +
+            '<td>' + $.getReadableCoins(transaction.fee, coinDisplayDecimals, true) + '</td>' +
+            '<td>' + $.getReadableCoins(transaction.amount_out, coinDisplayDecimals, true) + '</td>' +
             '<td>' + $.localizeNumber(transaction.size) + '</td>';
     };
 

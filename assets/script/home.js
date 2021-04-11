@@ -55,6 +55,7 @@
     });
 
 
+
     $.updateHome = function() {
         $.renderLastBlock();
         $.updateText('networkHeight', $.localizeNumber(lastStats.height.toString()));
@@ -152,9 +153,9 @@
                     cache: 'false',
                     success: function (data) {
                         block = data.result.block;
-                        $.updateText('totalCoins', $.getReadableCoins(block.alreadyGeneratedCoins, 2));
-                        $.updateText('emissionPercent', (block.alreadyGeneratedCoins / coinTotalSupply * 100).toFixed(4));
-                        $.updateText('currentReward', $.getReadableCoins(block.baseReward, 2));
+                        $.updateText('totalCoins', $.getReadableCoins(block.alreadyGeneratedCoins));
+                        $.updateText('emissionPercent', (block.alreadyGeneratedCoins / coinTotalSupply * 100).toFixed(5));
+                        $.updateText('currentReward', $.getReadableCoins(block.baseReward));
                     }
                 });
             }
@@ -262,8 +263,8 @@
                         let timestamp = Date().now; // this is not yet part of the json that gets returned in f_transactions_pool_json, leave for now
                         let columns =
                             /*'<td>' + formatDate(timestamp) + ' (<span class="mtx-ago"></span>)' + '</td>' +*/
-                            '<th scope="row">' + $.getReadableCoins(amount, 2, true) + '</th>' +
-                            '<td>' + $.getReadableCoins(fee, 2, true) + '</td>' +
+                            '<th scope="row">' + $.getReadableCoins(amount, coinDisplayDecimals, true) + '</th>' +
+                            '<td>' + $.getReadableCoins(fee, coinDisplayDecimals, true) + '</td>' +
                             '<td>' + $.localizeNumber(size) + '</td>' +
                             '<th scope="row" class="hash-code">' + hash + '</th>';
                         row.innerHTML = columns;

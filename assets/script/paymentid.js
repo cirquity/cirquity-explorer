@@ -2,7 +2,7 @@
     let paymentId;
     let xhrGetTsx;
     let txsByPaymentId;
-    
+
     $(function () {
         currentPage = 'payment';
         let isReadyPayment = setInterval(function() {
@@ -10,12 +10,12 @@
                 paymentId = $.urlParam('hash');
                 $.updateText('payment-id', paymentId);
                 $.getTransactions();
-                
+
                 clearInterval(isReadyPayment);
             }
         }, 10);
     });
-    
+
     $.getTransactions = function(){
         if (xhrGetTsx) xhrGetTsx.abort();
 
@@ -45,8 +45,8 @@
         }
         sessionStorage.removeItem('txsByPaymentId');
     };
-    
-    
+
+
     $.renderPaymentTransactions = function(transactionResults){
         let $transactionsRows = $('#transactions-rows');
 
@@ -80,8 +80,8 @@
 
     $.getPaymentTransactionCells = function(transaction){
         return '<th scope="row">' + $.formatPaymentLink(transaction.hash) + '</th>' +
-            '<td>' + $.getReadableCoins(transaction.fee, 4, true) + '</td>' +
-            '<td>' + $.getReadableCoins(transaction.amount_out, 4, true) + '</td>' +
+            '<td>' + $.getReadableCoins(transaction.fee, coinDisplayDecimals, true) + '</td>' +
+            '<td>' + $.getReadableCoins(transaction.amount_out, coinDisplayDecimals, true) + '</td>' +
             '<td>' + $.localizeNumber(transaction.size) + '</td>';
     };
 })(jQuery);

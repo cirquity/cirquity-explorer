@@ -74,6 +74,7 @@
                     v: date,
                     f: 'Block: ' + numeral(block).format('0,0') + ' estimated at ' + date.toUTCString()
                 };
+
                 chartData.push([
                     label,
                     (generatedCoins / Math.pow(10, coinDisplayDecimals)) * emissionCurveInterval,

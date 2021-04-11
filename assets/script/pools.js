@@ -308,7 +308,7 @@
         pools_row.push('<td id="hashrate-' + id + '">' + $.localizeNumber(poolHashrate) + ' H/s</td>');
         pools_row.push('<td id="miners-' + id + '">' + $.localizeNumber(poolMiners) + '</td>');
         pools_row.push('<td id="totalFee-' + id + '">' + $.calculateTotalFee(data) + '%</td>');
-        pools_row.push('<td id="minPayout-' + id + '">' + $.getReadableCoins(data.config.minPaymentThreshold, 2) + '</td>');
+        pools_row.push('<td id="minPayout-' + id + '">' + $.getReadableCoins(data.config.minPaymentThreshold, coinDisplayDecimals) + '</td>');
         pools_row.push('<td><span id="lastFound-' + id + '">' + dateString + '</span></td>');
         pools_row.push('</tr>');
 
@@ -337,7 +337,7 @@
             let profit = (hashRate * 86400 / avgDiff /*lastStats.difficulty*/) * lastReward;
             console.log(rateUnit, hashRate, profit, lastReward);
             if (profit) {
-                $.updateText('calcHashAmount', $.getReadableCoins(profit, 2, true));
+                $.updateText('calcHashAmount', $.getReadableCoins(profit, coinDisplayDecimals, true));
                 return;
             }
         }
