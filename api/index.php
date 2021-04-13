@@ -97,7 +97,7 @@ function getSupply() {
 
     $supplyRaw = getSupplyAtomic(true);
 
-    return_json(number_format($supplyRaw / 100, $config['coinDecimals'], '.', ','), 'supply');
+    return_json(number_format($supplyRaw / $config['coinUnits'], $config['coinDecimals'], '.', ','), 'supply');
 }
 
 function getSupplyAtomic($called = false) {
